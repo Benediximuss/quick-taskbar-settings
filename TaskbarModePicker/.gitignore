@@ -44,6 +44,7 @@ BundleArtifacts/
 publish/
 *.pubxml
 PublishScripts/
+!Properties/PublishProfiles/win-x64-single-file.pubxml
 
 # Code analysis and tooling
 _ReSharper*/

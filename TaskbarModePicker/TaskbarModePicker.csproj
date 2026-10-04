@@ -31,10 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Taskbar-Universal-v23-Core.ps1" Link="Scripts\Taskbar-Universal-v23-Core.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <EmbeddedResource Include="..\Taskbar-Universal-v23-Core.ps1">
+      <LogicalName>TaskbarModePicker.Scripts.Taskbar-Universal-v23-Core.ps1</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
