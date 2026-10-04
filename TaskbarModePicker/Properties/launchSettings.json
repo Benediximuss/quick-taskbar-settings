@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TaskbarModePicker (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TaskbarModePicker (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
