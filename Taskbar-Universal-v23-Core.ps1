@@ -41,6 +41,8 @@ function Invoke-TaskbarMode {
         [ValidateSet("All", "MainAndWindow", "Window")]
         [string]$Mode,
 
+        [int]$ForegroundProcessId = 0,
+
         [switch]$Probe
     )
 
@@ -76,6 +78,9 @@ public static class WindowCloser {
         uint msg,
         IntPtr wParam,
         IntPtr lParam);
+
+    [DllImport("user32.dll")]
+    public static extern bool AllowSetForegroundWindow(uint dwProcessId);
 }
 "@
         }
@@ -199,12 +204,19 @@ public static class WindowCloser {
     } finally {
         if ($settings -and $settings.Current.NativeWindowHandle) {
             try {
+                $settingsWindowHandle = [IntPtr]$settings.Current.NativeWindowHandle
                 [WindowCloser]::PostMessage(
-                    [IntPtr]$settings.Current.NativeWindowHandle,
+                    $settingsWindowHandle,
                     0x0010,
                     [IntPtr]::Zero,
                     [IntPtr]::Zero
                 ) | Out-Null
+            } catch {}
+        }
+
+        if ($ForegroundProcessId -gt 0) {
+            try {
+                [WindowCloser]::AllowSetForegroundWindow([uint32]$ForegroundProcessId) | Out-Null
             } catch {}
         }
 

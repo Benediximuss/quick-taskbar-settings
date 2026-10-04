@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="AppDisplayName" xml:space="preserve"><value>Görev çubuğu modu</value></data>
+  <data name="AppDescription" xml:space="preserve"><value>Çoklu ekran görev çubuğu modunu seçin</value></data>
+  <data name="TaskbarModePickerTitle" xml:space="preserve"><value>Görev çubuğu modu</value></data>
+  <data name="ModeAll" xml:space="preserve"><value>Tüm görev çubukları</value></data>
+  <data name="ModeMainAndWindow" xml:space="preserve"><value>Ana ve pencerenin açıldığı görev çubuğu</value></data>
+  <data name="ModeWindow" xml:space="preserve"><value>Pencerenin açıldığı görev çubuğu</value></data>
+  <data name="UnknownTaskbarMode" xml:space="preserve"><value>Bilinmeyen görev çubuğu modu.</value></data>
+  <data name="Status.Applying" xml:space="preserve"><value>'{0}' ayarı uygulanıyor…</value></data>
+  <data name="Status.Error" xml:space="preserve"><value>HATA · {0}</value></data>
+  <data name="Error.RegistryRead" xml:space="preserve"><value>Kayıt defterindeki '{0}' değeri okunamadı. Ayrıntı: {1}</value></data>
+  <data name="Error.CoreMissing" xml:space="preserve"><value>Görev çubuğu ayar işlevi uygulama paketinde bulunamadı.</value></data>
+  <data name="Error.InvalidMode" xml:space="preserve"><value>Bilinmeyen görev çubuğu modu.</value></data>
+  <data name="Error.PowerShellStart" xml:space="preserve"><value>PowerShell başlatılamadı. Görev çubuğu ayarı değiştirilmedi.</value></data>
+  <data name="Error.PowerShellProcessStart" xml:space="preserve"><value>PowerShell işlemi başlatılamadı. Görev çubuğu ayarı değiştirilmedi.</value></data>
+  <data name="Error.PowerShellExitCode" xml:space="preserve"><value>PowerShell işlemi {0} koduyla sonlandı.</value></data>
+
+  <data name="MainPage_Title.Text" xml:space="preserve"><value>Görev çubuğu modu</value></data>
+  <data name="MainPage_CloseButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Kapat</value></data>
+  <data name="MainPage_CloseButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Kapat (Esc)</value></data>
+  <data name="MainPage_AllModeButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Tüm görev çubukları</value></data>
+  <data name="MainPage_AllModeButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Tüm görev çubukları</value></data>
+  <data name="MainPage_AllModeLabel.Text" xml:space="preserve"><value>Tüm görev çubukları</value></data>
+  <data name="MainPage_MainAndWindowModeButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ana ve pencerenin açıldığı görev çubuğu</value></data>
+  <data name="MainPage_MainAndWindowModeButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Ana ve pencerenin açıldığı görev çubuğu</value></data>
+  <data name="MainPage_MainAndWindowModeLabel.Text" xml:space="preserve"><value>Ana ve pencerenin açıldığı görev çubuğu</value></data>
+  <data name="MainPage_WindowModeButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Pencerenin açıldığı görev çubuğu</value></data>
+  <data name="MainPage_WindowModeButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Pencerenin açıldığı görev çubuğu</value></data>
+  <data name="MainPage_WindowModeLabel.Text" xml:space="preserve"><value>Pencerenin açıldığı görev çubuğu</value></data>
+</root>

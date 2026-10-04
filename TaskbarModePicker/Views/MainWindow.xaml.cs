@@ -1,14 +1,16 @@
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using TaskbarModePicker.Resources;
+using WinRT.Interop;
 using Windows.Graphics;
 
-namespace TaskbarModePicker;
+namespace TaskbarModePicker.Views;
 
 public sealed partial class MainWindow : Window
 {
     private const int PopupWidth = 600;
     private const int PopupHeight = 340;
-    private const int PointerGap = 14;
+    private const int EdgeMargin = 8;
 
     public bool IsModeChangeInProgress { get; private set; }
 
@@ -16,7 +18,7 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
 
-        AppWindow.Title = "Görev çubuğu modu";
+        AppWindow.Title = AppStrings.Get("TaskbarModePickerTitle");
         AppWindow.SetIcon("Assets/AppIcon.ico");
 
         AppWindow.SetPresenter(AppWindowPresenterKind.Overlapped);
@@ -26,8 +28,8 @@ public sealed partial class MainWindow : Window
         presenter.IsMaximizable = false;
         presenter.IsMinimizable = false;
         presenter.IsAlwaysOnTop = true;
-        presenter.SetBorderAndTitleBar(hasBorder: false, hasTitleBar: false);
-        PlaceNearPointer();
+        presenter.SetBorderAndTitleBar(hasBorder: true, hasTitleBar: false);
+        PlaceAtBottomRight();
 
         RootFrame.Navigate(typeof(MainPage));
         Activated += OnWindowActivated;
@@ -47,37 +49,24 @@ public sealed partial class MainWindow : Window
         IsModeChangeInProgress = inProgress;
     }
 
-    private void PlaceNearPointer()
+    public void ReactivateAfterModeChange()
     {
-        if (!GetCursorPos(out var cursor))
-        {
-            AppWindow.Resize(new SizeInt32(PopupWidth, PopupHeight));
-            return;
-        }
+        var windowHandle = WindowNative.GetWindowHandle(this);
+        SetForegroundWindow(windowHandle);
+        Activate();
+    }
 
-        var pointer = new PointInt32(cursor.X, cursor.Y);
-        var display = DisplayArea.GetFromPoint(pointer, DisplayAreaFallback.Nearest);
+    private void PlaceAtBottomRight()
+    {
+        var display = GetCursorPos(out var cursor)
+            ? DisplayArea.GetFromPoint(new PointInt32(cursor.X, cursor.Y), DisplayAreaFallback.Nearest)
+            : DisplayArea.Primary;
         var workArea = display.WorkArea;
         var width = Math.Min(PopupWidth, workArea.Width);
         var height = Math.Min(PopupHeight, workArea.Height);
-
-        var x = cursor.X + PointerGap;
-        var y = cursor.Y + PointerGap;
-
-        if (x + width > workArea.X + workArea.Width)
-        {
-            x = cursor.X - width - PointerGap;
-        }
-
-        if (y + height > workArea.Y + workArea.Height)
-        {
-            y = cursor.Y - height - PointerGap;
-        }
-
-        var maxX = Math.Max(workArea.X, workArea.X + workArea.Width - width);
-        var maxY = Math.Max(workArea.Y, workArea.Y + workArea.Height - height);
-        x = Math.Clamp(x, workArea.X, maxX);
-        y = Math.Clamp(y, workArea.Y, maxY);
+        var margin = Math.Min(EdgeMargin, Math.Min(workArea.Width - width, workArea.Height - height) / 2);
+        var x = workArea.X + workArea.Width - width - margin;
+        var y = workArea.Y + workArea.Height - height - margin;
 
         AppWindow.MoveAndResize(new RectInt32(x, y, width, height));
     }
@@ -85,6 +74,10 @@ public sealed partial class MainWindow : Window
     [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
     [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
     private static extern bool GetCursorPos(out NativePoint point);
+
+    [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+    [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
+    private static extern bool SetForegroundWindow(IntPtr windowHandle);
 
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
     private struct NativePoint
