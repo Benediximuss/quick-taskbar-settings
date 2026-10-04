@@ -2,7 +2,7 @@
 
 $registryPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 $registryValueName = "MMTaskbarMode"
-$scriptPath = Join-Path $PSScriptRoot "Taskbar-Universal-v22.ps1"
+$corePath = Join-Path $PSScriptRoot "Taskbar-Universal-v23-Core.ps1"
 
 try {
     if (-not (Test-Path -LiteralPath $registryPath)) {
@@ -39,29 +39,14 @@ try {
         throw "Hedef mod geçersiz: [$targetMode]. Geçerli modlar: All, MainAndWindow, Window."
     }
 
-    if (-not (Test-Path -LiteralPath $scriptPath -PathType Leaf)) {
-        throw "Ayar değiştirme betiği bulunamadı: $scriptPath"
-    }
-
-    $modeScriptPath = '"' + $scriptPath + '"'
-    $powershellPath = Join-Path $PSHOME "powershell.exe"
-    if (-not (Test-Path -LiteralPath $powershellPath -PathType Leaf)) {
-        throw "Windows PowerShell çalıştırılabilir dosyası bulunamadı: $powershellPath"
+    if (-not (Test-Path -LiteralPath $corePath -PathType Leaf)) {
+        throw "Görev çubuğu işlevleri bulunamadı: $corePath"
     }
 
     Write-Host "Geçerli görev çubuğu modu: $currentMode. [$targetMode] moduna geçiliyor."
 
-    try {
-        $process = Start-Process -FilePath $powershellPath `
-            -ArgumentList @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $modeScriptPath, "-Mode", $targetMode) `
-            -NoNewWindow -Wait -PassThru -ErrorAction Stop
-    } catch {
-        throw "Ayar değiştirme betiği başlatılamadı. Ayrıntı: $($_.Exception.Message)"
-    }
-
-    if ($process.ExitCode -ne 0) {
-        throw "Ayar değiştirme betiği başarısız oldu (çıkış kodu: $($process.ExitCode)). Yukarıdaki hata ayrıntılarını inceleyin."
-    }
+    . $corePath
+    Invoke-TaskbarMode -Mode $targetMode
 
     if ($env:TASKBAR_TOGGLE_LAUNCHED_FROM_CMD -eq "1") {
         exit 0

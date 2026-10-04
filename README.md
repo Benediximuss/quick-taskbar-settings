@@ -20,7 +20,7 @@ Each launcher calls the corresponding mode in `Taskbar-Universal-v22.ps1` from i
 
 ## Toggle between the two common modes
 
-Run `Taskbar-Toggle.cmd` to switch between `All` and `Window`. It reads the current `MMTaskbarMode` registry value, whose existing values are `0 = All`, `1 = MainAndWindow`, and `2 = Window`. Values `0` and `1` select `Window`; value `2` selects `All`. It applies and verifies the change through v22's Settings UI automation without writing the registry directly. Error messages are in Turkish, and the launcher keeps its console open after a failure so the details remain visible.
+Run `Taskbar-Toggle.cmd` to switch between `All` and `Window`. It reads the current `MMTaskbarMode` registry value, whose existing values are `0 = All`, `1 = MainAndWindow`, and `2 = Window`. Values `0` and `1` select `Window`; value `2` selects `All`. It applies and verifies the change through the in-process `Taskbar-Universal-v23-Core.ps1` UI Automation function, based on v22, without writing the registry directly. The v22 baseline remains unchanged. Error messages are in Turkish, and the launcher keeps its console open after a failure so the details remain visible.
 
 ## Keyboard shortcuts
 Assign `Taskbar-Toggle.cmd` to a PowerToys Keyboard Manager shortcut for the common two-mode workflow. The individual mode launchers remain available when you need to select a specific mode.
